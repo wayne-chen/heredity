@@ -6,8 +6,10 @@ oneDay = 1.0/365.0    # is this useful?
 
 # End Constants
 
-from enum import Enum
+import simplejson as json
+cls = json.decoder.JSONDecoder
 
+from enum import Enum
 class PhysicalTrait(Enum):
     ugly = 0
     pretty = 1
@@ -43,3 +45,14 @@ class Player:
         [self._arr.append(parent.trait) for parent in parents]
     def Speak(self):
         print("hi my name is %s and im %.1f!\n" % (self._name, self._age))
+    def ChooseTraits(self, offspring):
+        pass
+
+class Offspring:
+    def __init__(self, traits):
+        # what determines birth?
+        self._arr = []  # contains array of traits
+    
+class Traits(Array):
+    def append(self, trait):
+

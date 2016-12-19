@@ -1,5 +1,5 @@
-{"traits":
-    {"physical":
+{"traits": {
+    "physical":
         "dimples",
         "blue eyes",
         "brown eyes",
@@ -8,35 +8,29 @@
         "widow's peak",
         "crow's feet"
             
-    }
-    {"mental":
-        {"negative":
+    },
+    {"mental": {"negative":
             "obsessive compulsive disorder",
             "autism",
             "schizophrenia",
             "bipolar disorder",
             "Down syndrome"
 
-        }
+        },
         {"positive":
             "optimism",
             "preserverance",
             "confidence",
             "adaptability"
         }
-    }
+    },
     {"bodily":
         "hemophilia"
-        
-
-    }
-    {
-    
-    }
+    },
     {"gender":
         "male",
         "female"
-    }
+    },
     {"personality":
         "altruism",
         "social ineptitude",
