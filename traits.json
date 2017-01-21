@@ -11,26 +11,28 @@
         ],    
         
         "mental": 
-        [["negative":
+        {"negative":
+                [
                 "obsessive compulsive disorder",
                 "autism",
                 "schizophrenia",
                 "bipolar disorder",
                 "Down syndrome"
-
-        ],
-        ["positive":
+                ],
+        "positive":
+                [
                 "optimism",
                 "preserverance",
                 "confidence",
                 "adaptability"
-        ]],
+                ]
+        },
         
         "bodily":
         [
                 "hemophilia"
         ],
-        "gender":
+        "sex":
         [
             "male",
             "female"
