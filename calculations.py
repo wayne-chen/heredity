@@ -14,9 +14,11 @@ def AgeEstimator(traitsArr):
         elif trait == MentalTrait.mentally_challenged:
             age -= 5.0  # life is frickin hard
         #etc.
+    return age
 
 # TODO: is this needed? if not, delete.
-def RollTrait(playerTraits):
+# a way to determine the weight of previously loaded traits and how they affect the end result of the roll
+def RollTraitWeighted(playerTraits):
     # how should probability be determined for these, esp. by ethnicity/sex/that stuff?
     if playerTraits == []:
         # choose physical or mental

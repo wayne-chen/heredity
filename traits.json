@@ -1,43 +1,47 @@
-{"traits": {
-        "physical":
-        [
-            "dimples",
-            "blue eyes",
-            "brown eyes",
-            "green eyes",
-            "albino",
-            "widow's peak",
-            "crow's feet"
-        ],    
-        
-        "mental": 
-        {"negative":
-                [
+{"traits": 
+    {"physical":
+        {"positive":
+            [
+                "dimples",
+                "blue eyes",
+                "brown eyes",
+                "green eyes",
+                "widow's peak",
+                "crow's feet"
+            ],
+        "negative":
+            [
+                "albino"
+            ]
+        },
+    "mental": 
+        {"positive":
+            [
+                "optimism",
+                "preserverance",
+                "confidence",
+                "adaptability"
+            ],
+        "negative":
+            [
                 "obsessive compulsive disorder",
                 "autism",
                 "schizophrenia",
                 "bipolar disorder",
                 "Down syndrome"
-                ],
-        "positive":
-                [
-                "optimism",
-                "preserverance",
-                "confidence",
-                "adaptability"
-                ]
+            ]
         },
         
-        "bodily":
+    "bodily":
         [
-                "hemophilia"
+            "hemophilia"
         ],
-        "sex":
+    "sex":
         [
             "male",
             "female"
         ],
-        "personality":
+    "personality":
         [
             "altruism",
             "social ineptitude",
