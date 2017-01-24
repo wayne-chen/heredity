@@ -42,6 +42,7 @@ class Player(Human):
 
     def AddTrait(self, trait):
         self._traits.append(trait)
+        self.ReadjustEstimatedDeath()
 
 class Game:
     def __init__(self, playerName, playerGender):
@@ -52,9 +53,9 @@ class Game:
         for line in f.readlines():
             data += line
         f.close()
-
         self.traitsData = json.loads(data)['traits']
         Start(self.traitsData)
+
     def Start(self):
         # load parents
         # generate based on number of mental and physical traits
@@ -103,7 +104,7 @@ class Game:
         return calculations.RollTraitWeighted(self.player.Traits())
 
     def SelectTrait(self):
-
+        pass
    
     # triggered in UI, event occurs when life milestones occur
     def SelectPhysicalTrait(self):
