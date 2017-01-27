@@ -1,5 +1,5 @@
 import random
-from ..traits.enumTraits import * 
+from ..traits.enumTraits import *
 
 def AgeEstimator(traitsArr):
     # life expectancy should start at some constant

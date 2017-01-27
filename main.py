@@ -1,6 +1,6 @@
 #!/usr/bin/python3
 
-from .game import *
+from game import *
 def main():
    game = Game() 
    game.Start()

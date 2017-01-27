@@ -1,4 +1,3 @@
-from .enumTraits import *
 import random
 
 class GenericTrait:
@@ -53,7 +52,7 @@ class PhysicalTrait(GenericTrait):
             if idx < enumPhysicalTrait.size:
                 return [x for x,_ in enumPhysicalTrait.__members__.items()][idx]
         except:
-            print("Error: tried to fetch an item outside of Physical Trait's bounds")
+            print("Error: tried to fetch an item outside of physical trait's bounds")
 
     def RollTrait(self):
         super.RollTrait(self)
@@ -68,8 +67,7 @@ class MentalTrait(GenericTrait):
             if idx < enumPhysicalTrait.size:
                 return [x for x,_ in enumPhysicalTrait.__members__.items()][idx]
         except:
-            print("Error: tried to fetch an item outside of Physical Trait's bounds")
-
+            print("Error: tried to fetch an item outside of mental trait's bounds")
 
     def RollTrait(self):
         super.RollTrait(self)

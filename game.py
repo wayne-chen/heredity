@@ -1,5 +1,5 @@
-from .humans import *
-from .traits import *
+from humans import *
+from traits import *
 import calculations
 class Player(Human):
     def __init__(self, name, sex, parents):
