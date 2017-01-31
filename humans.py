@@ -1,4 +1,4 @@
-from .traits import *
+from traits.traits import *
 
 class Human:
     # what does a human possess
