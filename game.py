@@ -10,7 +10,7 @@ class Player(Human):
         self._estimatedAgeOfDeath = 0.0
         # list of parents
         self._parents = parents
-        self.InheritFromParents()
+        # self.InheritFromParents()
 
     # def Update(self):
     #    self.ReadjustEstimatedDeath
@@ -22,7 +22,7 @@ class Player(Human):
 
     def InheritFromParents(self):
         # inherit parents' traits
-        [self._traits.append(parent.trait) for parent in self.parents]
+        [self._traits.append(parent.Trait()) for parent in self.parents]
 
     def Speak(self):
         print("hi my name is %s and im %.1f!\n" % (self._name, self._age))

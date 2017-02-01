@@ -37,10 +37,10 @@
             "hemophilia"
         ],
     "sex":
-        [
-            "male",
-            "female"
-        ],
+        {
+            "M": "Male",
+            "F": "Female"
+        },
     "personality":
         [
             "altruism",

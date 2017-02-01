@@ -12,9 +12,14 @@ class Ui_StartDlg(object):
     def setupUi(self, StartDlg):
         StartDlg.setObjectName("StartDlg")
         StartDlg.resize(315, 225)
-        self.startBtn = QtWidgets.QPushButton(StartDlg)
-        self.startBtn.setGeometry(QtCore.QRect(130, 180, 81, 24))
-        self.startBtn.setObjectName("startBtn")
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy.setHorizontalStretch(0)
+        sizePolicy.setVerticalStretch(0)
+        sizePolicy.setHeightForWidth(StartDlg.sizePolicy().hasHeightForWidth())
+        StartDlg.setSizePolicy(sizePolicy)
+        self.nextBtn = QtWidgets.QPushButton(StartDlg)
+        self.nextBtn.setGeometry(QtCore.QRect(230, 190, 81, 24))
+        self.nextBtn.setObjectName("nextBtn")
         self.nameLbl = QtWidgets.QLabel(StartDlg)
         self.nameLbl.setGeometry(QtCore.QRect(50, 40, 60, 16))
         self.nameLbl.setAlignment(QtCore.Qt.AlignRight|QtCore.Qt.AlignTrailing|QtCore.Qt.AlignVCenter)
@@ -50,16 +55,21 @@ class Ui_StartDlg(object):
         self.yearCombo = QtWidgets.QComboBox(StartDlg)
         self.yearCombo.setGeometry(QtCore.QRect(240, 100, 51, 21))
         self.yearCombo.setObjectName("yearCombo")
+        self.whoLbl = QtWidgets.QLabel(StartDlg)
+        self.whoLbl.setGeometry(QtCore.QRect(80, 10, 151, 16))
+        self.whoLbl.setAlignment(QtCore.Qt.AlignCenter)
+        self.whoLbl.setObjectName("whoLbl")
 
         self.retranslateUi(StartDlg)
         QtCore.QMetaObject.connectSlotsByName(StartDlg)
 
     def retranslateUi(self, StartDlg):
         _translate = QtCore.QCoreApplication.translate
-        StartDlg.setWindowTitle(_translate("StartDlg", "Start Page"))
-        self.startBtn.setText(_translate("StartDlg", "Start"))
+        StartDlg.setWindowTitle(_translate("StartDlg", "Setup"))
+        self.nextBtn.setText(_translate("StartDlg", "Next >"))
         self.nameLbl.setText(_translate("StartDlg", "Name"))
         self.sexLbl.setText(_translate("StartDlg", "Sex"))
         self.birthdateLbl.setText(_translate("StartDlg", "Birthdate"))
         self.traitLbl.setText(_translate("StartDlg", "Select a Trait:"))
+        self.whoLbl.setText(_translate("StartDlg", "Who are You?"))
 

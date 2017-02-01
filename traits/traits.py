@@ -1,14 +1,22 @@
 import random
 
 class GenericTrait:
-    def RollTrait(self, trait):
+    def RollTrait(self, traits):
         try:
-            if trait.size == 0:
+            if len(traits) == 0:
                raise AttributeError    
-            return trait[random.randint(0, trait.size.value - 1)]
+            random.shuffle(traits)
+            return traits[random.randint(0, len(traits) - 1)]
         except AttributeError: 
             print("couldn't roll a random trait")
 
+    def RandomNegativeTrait(self, negativeArr):
+        import random
+        return (negativeArr[random.randint(len(negativeArr) - 1)])
+
+    def RandomPositiveTrait(self, positiveArr):
+        import random
+        return (positiveArr[random.randint(len(positiveArr) - 1)])
 
 class Traits:
     
@@ -44,32 +52,34 @@ class Traits:
 
 class PhysicalTrait(GenericTrait):
     
-    def __init__(self):
+    def __init__(self, physArr):
         super(PhysicalTrait, self).__init__()
-    
-    def __getitem__(self, idx):
-        try:
-            if idx < enumPhysicalTrait.size:
-                return [x for x,_ in enumPhysicalTrait.__members__.items()][idx]
-        except:
-            print("Error: tried to fetch an item outside of physical trait's bounds")
+        self._negativeTraits = physArr["negative"] 
+        self._positiveTraits = physArr["positive"] 
+
+    def RandomPositiveTrait(self):
+        super.RandomPositiveTrait(self._positiveTraits)
+
+    def RandomNegativeTrait(self):
+        super.RandomNegativeTrait(self._negativeTraits)
 
     def RollTrait(self):
-        super.RollTrait(self)
+        super.RollTrait(self._allTraits)
     
 
 class MentalTrait(GenericTrait):
     def __init__(self):
         super(MentalTrait, self).__init__()
+        self._negativeTraits = physArr["negative"] 
+        self._positiveTraits = physArr["positive"] 
+        self._allTraits = self._negativeTraits + self._positiveTraits
+    def RandomPositiveTrait(self):
+        super.RandomPositiveTrait(self._positiveTraits)
 
-    def __getitem__(self, idx):
-        try:
-            if idx < enumPhysicalTrait.size:
-                return [x for x,_ in enumPhysicalTrait.__members__.items()][idx]
-        except:
-            print("Error: tried to fetch an item outside of mental trait's bounds")
+    def RandomNegativeTrait(self):
+        super.RandomNegativeTrait(self._negativeTraits)
 
     def RollTrait(self):
-        super.RollTrait(self)
+        super.RollTrait(self._allTraits)
 
 
