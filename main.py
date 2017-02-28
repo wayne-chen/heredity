@@ -1,4 +1,4 @@
-#!/usr/local/bin/python3
+#!/usr/bin/env python3
 
 from resources.ui.mainwindow import Ui_MainWindow
 from resources.ui.startdlg import Ui_StartDlg
