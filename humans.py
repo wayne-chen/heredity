@@ -16,7 +16,7 @@ class Human:
             self._sex = kwargs.get('sex')
         else:
             self._sex = "female"
-        if kwargs.get('traits') != Non:
+        if kwargs.get('traits') != None:
             self._traits = kwargs.get('traits')
         elif kwargs.get('trait') != None:
             self._traits = [str(kwargs.get('trait'))]
