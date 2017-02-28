@@ -14,7 +14,7 @@ def GetMentalPhysicalTraits():
     import json, os
     filename = os.path.join(os.path.dirname(os.path.abspath(__file__)) + "/resources/", "traits.json")
     f = open(filename, "r") 
-    data = json.loads("".join(f.readlines()))
+    data = json.loads("".join(f.readlines()))['traits']
     f.close()
     traitsArr = [] 
 
@@ -36,6 +36,7 @@ class StartDlg(QtWidgets.QDialog, Ui_StartDlg):
         self._yearsArr = []
         [self._yearsArr.append(str(year)) for year in range(1920, 2011)]
         self._traitsArr = GetMentalPhysicalTraits()
+        print(self._traitsArr)
         self.monthCombo.currentIndexChanged.connect(self.UpdateDayCombo)
         self.dayCombo.currentIndexChanged.connect(self.UpdateYearCombo)
         self.nameTxt.textChanged.connect(self.UpdateForm)

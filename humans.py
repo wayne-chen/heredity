@@ -13,7 +13,7 @@ class Human:
         else:
             self._age = 0.0
         if kwargs.get('sex') != None:
-            self._sex = sex
+            self._sex = kwargs.get('sex')
         else:
             self._sex = "female"
         if kwargs.get('traits') != Non:
