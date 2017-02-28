@@ -1,26 +1,41 @@
-#!/usr/bin/python3
+#!/usr/local/bin/python3
 
-from resources.mainwindow import Ui_MainWindow
-from resources.startdlg import Ui_StartDlg
-from resources.errordlg import Ui_ErrorDlg
+from resources.ui.mainwindow import Ui_MainWindow
+from resources.ui.startdlg import Ui_StartDlg
+from resources.ui.parentsdlg import Ui_ParentsDlg
+from resources.ui.errordlg import Ui_ErrorDlg
 from PyQt5 import QtCore, QtGui, QtWidgets
 
 import sys
 
 from game import *
-# from traits.enumTraits import *
+
+def GetMentalPhysicalTraits():
+    import json, os
+    filename = os.path.join(os.path.dirname(os.path.abspath(__file__)) + "/resources/", "traits.json")
+    f = open(filename, "r") 
+    data = json.loads("".join(f.readlines()))
+    f.close()
+    traitsArr = [] 
+
+    for datumId in data:
+        if datumId in ["physical", "mental"]:
+            for item in data[datumId]:
+                traitsArr += [trait for trait in data[datumId][item]]
+
+    return traitsArr
 
 class StartDlg(QtWidgets.QDialog, Ui_StartDlg):
     def __init__(self, parent = None):
         super(StartDlg, self).__init__(parent)
         self.setupUi(self)
-        self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True) 
         self._bUpdatedForm = False 
         self._sexArr = ["Male", "Female"]
         self._monthsArr = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"]
         self._monthsArrShortened = [month[:3] for month in self._monthsArr]
         self._yearsArr = []
         [self._yearsArr.append(str(year)) for year in range(1920, 2011)]
+        self._traitsArr = GetMentalPhysicalTraits()
         self.monthCombo.currentIndexChanged.connect(self.UpdateDayCombo)
         self.dayCombo.currentIndexChanged.connect(self.UpdateYearCombo)
         self.nameTxt.textChanged.connect(self.UpdateForm)
@@ -29,7 +44,7 @@ class StartDlg(QtWidgets.QDialog, Ui_StartDlg):
         self.dayCombo.addItem("")
         self.yearCombo.addItem("")
         self.traitCombo.addItem("")
-        
+
     def UpdateDayCombo(self):
         if self.monthCombo.currentText() in self._monthsArrShortened:
             idx = self._monthsArrShortened.index(self.monthCombo.currentText()) + 1
@@ -56,36 +71,67 @@ class StartDlg(QtWidgets.QDialog, Ui_StartDlg):
         if not self._bUpdatedForm:
             self.sexCombo.addItems(self._sexArr)
             self.monthCombo.addItems(self._monthsArrShortened)
+            self.traitCombo.addItems(self._traitsArr) 
             self._bUpdatedForm = True
 
     def AllFieldsValid(self):
         # make sure everything is filled out properly
-        return (self.nameTxt.currentText() != "") and (self.sexCombo.currentText() in self._sexArr) and \
+        return (self.nameTxt.toPlainText() != "") and (self.sexCombo.currentText() in self._sexArr) and \
                 (self.monthCombo.currentText() in self._monthsArrShortened) and (self.dayCombo.currentText() in self._daysArr) and (self.yearCombo.currentText() in self._yearsArr) and \
                 (self.traitCombo.currentText() in self._traitsArr)
 
+class ParentsDlg(QtWidgets.QDialog, Ui_ParentsDlg):
+    def __init__(self, parent = None):
+        super(ParentsDlg, self).__init__(parent)
+        self.setupUi(self)
+
+    def AllFieldsValid(self):
+        return (self.fatherNameTxt.toPlainText() != "") and (self.motherNameTxt.toPlainText() != "")
+         
 class MainWindow(QtWidgets.QMainWindow, Ui_MainWindow):
     def __init__(self, parent = None):
         super(MainWindow, self).__init__(parent)
         self.setupUi(self)
 
+class ErrorDlg(QtWidgets.QDialog, Ui_ErrorDlg):
+    def __init__(self, parent = None):
+        super(ErrorDlg, self).__init__(parent)
+        self.setupUi(self)
+        self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
+        self.okBtn.clicked.connect(self.close) 
+
 class Manager:
     def __init__(self, args):
         # UI related things.
         self.app = QtWidgets.QApplication(args)
-        self.startDlg = StartDlg()
         self.mainWindow = MainWindow()
-        self.startDlg.startBtn.clicked.connect(self.LoadMain)
+        self.startDlg = StartDlg(self.mainWindow)
+        self.startDlg.nextBtn.clicked.connect(self.LoadParentsDlg)
+        self.parentsDlg = ParentsDlg(self.mainWindow)
+        self.parentsDlg.prevBtn.clicked.connect(self.RevertStartDlg)
+        self.parentsDlg.finishBtn.clicked.connect(self.LoadMainWindow)
         self._offspringArr = []
-        self._player = Player()
 
-    def LoadMain(self):
-        if self.startDlg.AllFieldsValid():
+    def RevertStartDlg(self):
+        self.parentsDlg.hide()
+        self.startDlg.show()
+
+    def LoadParentsDlg(self):
+        self.startDlg.hide()
+        self.parentsDlg.show()
+
+    def LoadMainWindow(self):
+        if self.startDlg.AllFieldsValid and self.parentsDlg.AllFieldsValid():
             self.startDlg.close()
+            self.parentsDlg.close()
             self.mainWindow.show()
+            father = Human(name=self.parentsDlg.fatherNameTxt.toPlainText(), sex="male")
+            mother = Human(name=self.parentsDlg.motherNameTxt.toPlainText())
+            # should the player start at their current age or be born???
+            self._player = Player(name=self.startDlg.nameTxt.toPlainText(),sex=self.startDlg.sexCombo.currentText(),parents=[father, mother])
         else:
             errorDlg = ErrorDlg(self)
-            self.errorDlg.setText("Please set all fields properly before continuing.")
+            errorDlg.setText("Please set all fields properly before continuing.")
 
     def Start(self):
         # starts the game
@@ -121,13 +167,6 @@ class Manager:
         if mate != False:
             if self.GetItOn(mate):
                 pass
-
-class ErrorDlg(QtWidgets.QDialog, Ui_ErrorDlg):
-    def __init__(self, parent = None):
-        super(ErrorDlg, self).__init__(parent)
-        self.setupUi(self)
-        self.setAttribute(QtCore.Qt.WA_DeleteOnClose, True)
-        self.okBtn.clicked.connect(self.close) 
 
 # def main_future():
    # game = Game() 
